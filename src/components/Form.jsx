@@ -26,8 +26,8 @@ const Form = () => {
     );
     const data = await response.json();
     updateResponses([
-      ...responses,
       { prompt: prompt, answer: data.choices[0].text },
+      ...responses,
     ]);
   }
   const onSubmit = (e) => {
@@ -50,7 +50,11 @@ const Form = () => {
         <div>
           <ul>
             {responses.map((response, i) => {
-              return <div className="yes" key={i}>{[response.prompt, response.answer]}</div>;
+              return (
+                <div className="yes" key={i}>
+                  {[response.prompt, response.answer]}
+                </div>
+              );
             })}
           </ul>
         </div>
