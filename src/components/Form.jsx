@@ -2,9 +2,9 @@ import { useState } from "react";
 
 const Form = () => {
   const [prompt, setPrompt] = useState("");
-  const [result, setResult] = useState();
+  const [responses, updateResponses] = useState([]);
 
-  async function getData(req, res) {
+  async function getData() {
     const submission = {
       prompt: prompt,
       temperature: 0.5,
@@ -25,15 +25,15 @@ const Form = () => {
       }
     );
     const data = await response.json();
-    setResult(data.choices[0].text);
-    setPrompt("");
-    console.log("look here response", data.choices[0].text);
+    updateResponses([
+      ...responses,
+      { prompt: prompt, answer: data.choices[0].text },
+    ]);
   }
-
-  async function onSubmit(event) {
-    event.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
     getData();
-  }
+  };
 
   return (
     <div>
@@ -47,7 +47,13 @@ const Form = () => {
           onChange={(e) => setPrompt(e.target.value)}
         />
         <input type="submit" value="Generate results" />
-        <div>prompt:{prompt} result: {result}</div>
+        <div>
+          <ul>
+            {responses.map((response, i) => {
+              return <div className="yes" key={i}>{[response.prompt, response.answer]}</div>;
+            })}
+          </ul>
+        </div>
       </form>
     </div>
   );
