@@ -1,0 +1,87 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    .svgThing {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        padding-top: 1em;
+        
+    
+    }
+    
+    .responses {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        width: 80%;
+        
+        h2 {
+            color: #E4A1A1;
+            font-size: 1em;
+            padding-top: 4em;
+            margin: 0;
+        }
+        ul {
+            padding: 0;
+            list-style-type: none;
+            height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            
+            .yes {
+                background-color: rgb(218, 246, 255);
+                color: rgb(72, 74, 77);
+                padding: 1em;
+                margin: 1em;
+                box-shadow: 5px 10px #859ca3;
+                h4 {
+                    font-weight: 100;
+                }
+            }
+            .animate {
+                animation-duration: 0.5s;
+                animation-name: animate-fade;
+                animation-delay: 0.5s;
+                animation-fill-mode: backwards;
+              }
+              
+              @keyframes animate-fade {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+              }
+        }
+        
+        
+    }
+}
+
+input[type=text] {
+  min-width: 200%;
+  padding: 12px 20px;
+  margin: 2em;
+  box-sizing: border-box;
+  border-style: none;
+  font-family: 'Roboto Mono', monospace;
+}
+
+input[type=submit] {
+    font-family: 'Roboto Mono', monospace;
+    background-color: transparent;
+    padding: 1em;
+    border-width: 1px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #dbecdd;
+    }
+
+    &:active {
+        background-color: #8ba18d;
+    }
+}
+

@@ -1,5 +1,5 @@
 import Form from "./components/Form";
-import Responses from "./components/Responses";
+import './app.scss';
 
 
 function App() {
@@ -8,7 +8,6 @@ function App() {
     <div className="App">
       <h1>Fun with AI</h1>
       <Form />
-      <Responses />
     </div>
   );
 }
