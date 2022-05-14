@@ -10,8 +10,40 @@
     padding-bottom: 5em;
     
     
+    
+    
     h1 {
         color: #E4A1A1;
         background-color: white;
     }
+
+    .bottom {
+        color: white;
+        font-size: 13px;
+        position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+            padding: 0px;
+            bottom: 0;
+            width: 100%;
+            /* Height of the footer*/ 
+            height: 30px;
+            background: #E4A1A1;
+    }
 }
+
+@media only screen and (max-width: 768px) {
+    .App {
+        
+        height: auto;
+        width: auto;
+        
+        h1 {
+            font-size: 1.5em;
+            margin: 0;
+            padding-top: 0;
+        }
+        
+    }
+  }

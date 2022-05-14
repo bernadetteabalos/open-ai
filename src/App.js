@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <h1>Fun with AI</h1>
       <Form />
+      <footer className="bottom">♥ made with love and caffeine by bernadette abalos</footer>
     </div>
   );
 }
