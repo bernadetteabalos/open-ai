@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import debounce from "lodash.debounce";
 import "./form.scss";
 import robot from "../../src/robo.svg";
+import loading from "../../src/loading.gif";
 
 const Form = () => {
   const [prompt, setPrompt] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [responses, updateResponses] = useState(() => {
     if (!localStorage.getItem("responses")) {
       return [];
@@ -14,7 +17,7 @@ const Form = () => {
     }
   });
 
-  async function getData() {
+  const getData = useCallback(async () => {
     const submission = {
       prompt: prompt,
       temperature: 0.5,
@@ -41,11 +44,15 @@ const Form = () => {
         ...responses,
       ]);
     setPrompt("");
-  }
+    setLoading(false);
+  }, [prompt, responses]);
   const onSubmit = (e) => {
     e.preventDefault();
-    getData();
+    setLoading(true);
+    debouncedGetData();
   };
+
+  const debouncedGetData = useMemo(() => debounce(getData, 2000), [getData]);
 
   const clearStorage = () => {
     localStorage.removeItem("responses");
@@ -68,21 +75,46 @@ const Form = () => {
       <div className="roboSvg">
         <img src={robot} alt="robot"></img>
       </div>
-      <form className="form" onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="prompt"
-          placeholder="enter prompt"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-        />
-        <input type="submit" value="Generate results" />
-      </form>
+      {isLoading ? (
+        <fieldset disabled={true}>
+          <form className="form" onSubmit={onSubmit}>
+            <input
+              type="text"
+              name="prompt"
+              placeholder="enter prompt"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+            />
+            <input type="submit" value="Generate results" />
+          </form>
+        </fieldset>
+      ) : (
+        <form className="form" onSubmit={onSubmit}>
+          <input
+            type="text"
+            name="prompt"
+            placeholder="enter prompt"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+          />
+          <input type="submit" value="Generate results" />
+        </form>
+      )}
+
+      {isLoading ? (
+        <div className="loader">
+          <h4>fetching data...</h4>
+          <img alt="loading" src={loading} />
+        </div>
+      ) : (
+        ""
+      )}
       <div className="responses">
         <h2>RESPONSES</h2>
         <button className="clear" onClick={clearStorage}>
           Clear All
         </button>
+
         <ul>
           {responses.map((response, i) => {
             return (
