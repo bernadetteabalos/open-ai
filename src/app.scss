@@ -1,49 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 .App {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Roboto Mono', monospace;
-    padding-top: 3em;
-    padding-bottom: 5em;
-    
-    
-    
-    
-    h1 {
-        color: #E4A1A1;
-        background-color: white;
-    }
-
-    .bottom {
-        color: white;
-        font-size: 75%;
-        position: fixed;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-            padding: 0px;
-            bottom: 0;
-            width: 100%;
-            /* Height of the footer*/ 
-            height: 30px;
-            background: #E4A1A1;
-    }
+  font-family: "Roboto Mono", monospace;
+  padding-top: 3em;
+  padding-bottom: 5em;
+
+  h1 {
+    color: #e4a1a1;
+    background-color: white;
+  }
+
+  .bottom {
+    color: white;
+    font-size: 75%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/
+    height: 30px;
+    background: #e4a1a1;
+  }
 }
 
 @media only screen and (max-width: 768px) {
-    .App {
-        
-        height: auto;
-        width: auto;
-        
-        h1 {
-            font-size: 1.5em;
-            margin: 0;
-            padding-top: 0;
-        }
-        
+  .App {
+    height: auto;
+    width: auto;
+
+    h1 {
+      font-size: 1.5em;
+      margin: 0;
+      padding-top: 0;
     }
   }
+}

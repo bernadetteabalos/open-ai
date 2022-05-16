@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./form.scss";
 import robot from "../../src/robo.svg";
 
 const Form = () => {
   const [prompt, setPrompt] = useState("");
-  const [responses, updateResponses] = useState([]);
+  const [responses, updateResponses] = useState(() => {
+    if (!localStorage.getItem("responses")) {
+      return [];
+    } else {
+      const saved = localStorage.getItem("responses");
+      const initialValue = JSON.parse(saved);
+      return initialValue || "";
+    }
+  });
 
   async function getData() {
     const submission = {
@@ -39,9 +47,25 @@ const Form = () => {
     getData();
   };
 
+  const clearStorage = () => {
+    localStorage.removeItem("responses");
+    updateResponses([]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("responses", JSON.stringify(responses));
+  }, [responses]);
+
+  useEffect(() => {
+    const responses = JSON.parse(localStorage.getItem("responses"));
+    if (responses) {
+      updateResponses(responses);
+    }
+  }, []);
+
   return (
     <div className="form">
-      <div className="svgThing">
+      <div className="roboSvg">
         <img src={robot} alt="robot"></img>
       </div>
       <form className="form" onSubmit={onSubmit}>
@@ -56,11 +80,16 @@ const Form = () => {
       </form>
       <div className="responses">
         <h2>RESPONSES</h2>
-
+        <button className="clear" onClick={clearStorage}>
+          Clear All
+        </button>
         <ul>
           {responses.map((response, i) => {
             return (
-              <div key={i} className={"yes " + (i === 0 ? "animate" : "")}>
+              <div
+                key={i}
+                className={"responseItem " + (i === 0 ? "animate" : "")}
+              >
                 {[
                   <h3>Prompt: {response.prompt}</h3>,
                   <h4>Response: {response.answer}</h4>,

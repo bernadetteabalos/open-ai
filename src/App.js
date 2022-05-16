@@ -6,8 +6,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Fun with AI</h1>
-      <Form />
+      <header>
+        <h1>Fun with AI</h1>
+      </header>
+      <main>
+        <Form />
+      </main>
       <footer className="bottom">♥ made with love and caffeine by bernadette abalos</footer>
     </div>
   );
